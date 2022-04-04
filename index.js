@@ -4,7 +4,13 @@ let addVertical = document.querySelector('.add-vertical');
 let remHoriz = document.querySelector('.remove-horizontal');
 let remVertical = document.querySelector('.remove-vertical');
 
+let i = 0
+
 let box = document.querySelector('.box');
+
+box.addEventListener('click', () => {
+    console.log(i++)
+})
 
 
 addHoriz.addEventListener('click', () => {
@@ -27,8 +33,6 @@ remVertical.addEventListener('click', () => {
     box.style.height = Math.floor(box.clientHeight) - 50 + 'px'
     box.innerHTML = '';
     
-    console.log(box.clientWidth)
-    console.log(box.clientHeight)
     for (let i = 0; i < Math.floor(box.clientWidth / 52) * Math.floor(box.clientHeight / 52); i++)
     box.innerHTML += '<div class="squer"></div>';
 })
@@ -36,9 +40,7 @@ remVertical.addEventListener('click', () => {
 remHoriz.addEventListener('click', () => {
     box.style.width = Math.floor(box.clientWidth) - 50 + 'px'
     box.innerHTML = '';
-    
-    console.log(box.clientWidth)
-    console.log(box.clientHeight)
+
     for (let i = 0; i < Math.floor(box.clientWidth / 52) * Math.floor(box.clientHeight / 52); i++)
     box.innerHTML += '<div class="squer"></div>';
 })
