@@ -4,57 +4,11 @@
     padding: 0;
 }
 
-.wrap {
+.wrap-box {
     display: inline-block;
     position: relative;
     margin: 200px;
 }
-
-.grid-container {
-    // width: 1140px;
-    margin: 82px auto 0 auto;
-    padding: 10px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(3, minmax(150px, 240px)) ;
-    grid-template-rows: repeat(3, minmax(260px, auto));
-    grid-auto-rows: minmax(100px, auto);
-    gap: 60px;
-    grid-template-areas:
-    "first first ."
-    "second . ."
-    ". . third" ;
-}
-
-#first {
-    grid-area: first;
-}
-
-#second {
-    grid-area: second;
-}
-
-#third {
-    grid-area: third;
-}
-
-
-.grid-elem{
-	&__img {
-		width: 100%;
-	}
-
-}
-
-.text {
-    margin-top: 15px;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 16px;
-	font-family: 'Roboto', sans-serif;
-}
-
-
 
 .box{
     display: flex;
@@ -64,7 +18,7 @@
     border: green 1px solid
 }
 
-.squer{
+.square{
     margin: 1px;
     width: 50px;
     height: 50px;
