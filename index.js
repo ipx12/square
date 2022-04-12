@@ -48,8 +48,45 @@ function fillSquere() {
         box.removeChild(box.lastChild)
     }
 
+    remVertical.addEventListener('mouseover', () => {
+        remVertical.style.visibility = "visible";
+        remHoriz.style.visibility = "visible";
+    })
+
+    remVertical.addEventListener('mouseout', () => {
+        remVertical.style.visibility = "hidden";
+        remHoriz.style.visibility = "hidden";
+    })
+
+    remHoriz.addEventListener('mouseover', () => {
+        remVertical.style.visibility = "visible";
+        remHoriz.style.visibility = "visible";
+    })
+
+    remHoriz.addEventListener('mouseout', () => {
+        remVertical.style.visibility = "hidden";
+        remHoriz.style.visibility = "hidden";
+    })
+
     for (let i = 0; i < Math.floor(box.clientWidth / 52) * Math.floor(box.clientHeight / 52); i++) {
        let squere = document.createElement('div')
+
+
+
+       squere.addEventListener('mouseover', () => {
+
+            remVertical.style.visibility = "visible";
+            remVertical.style.left = squere.offsetLeft + 'px'
+
+            remHoriz.style.visibility = "visible";
+            remHoriz.style.top = squere.offsetTop + 'px'
+       })
+
+       squere.addEventListener('mouseout', () => {
+            remVertical.style.visibility = "hidden";
+            remHoriz.style.visibility = "hidden";
+       })
+
        squere.classList.add('square')
        box.append(squere)
     }

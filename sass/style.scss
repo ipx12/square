@@ -71,10 +71,14 @@
 }
 
 .remove-vertical {
-    position: relative;
+    visibility: hidden;
+    position: absolute;
+    top: -50px;
+    left: 2px;
     width: 50px;
     height: 50px;
     background-color: orangered;
+    transition: all .3s;
     &:hover {
         opacity: 0.7;
     }
@@ -91,11 +95,14 @@
 }
 
 .remove-horizontal {
+    visibility: hidden;
     position: absolute;
     left: -50px;
+    top: 2px;
     width: 50px;
     height: 50px;
     background-color: orangered;
+    transition: all .3s;
     &:hover {
         opacity: 0.7;
     }
