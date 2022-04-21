@@ -1,134 +1,132 @@
-
-const wrapBox = document.createElement('div');
-const box = document.createElement('div');
-
-const addHoriz = document.createElement('div');
-const remHoriz = document.createElement('div');
+const app = document.querySelector(".app")
 
 const addVertical = document.createElement('div');
+addVertical.classList.add('add-vertical_2', 'button');
+app.appendChild(addVertical);
+
+const addHoriz = document.createElement('div');
+addHoriz.classList.add('add-horizontal_2', 'button');
+document.querySelector(".app").appendChild(addHoriz);
+
+
+
 const remVertical = document.createElement('div');
+remVertical.classList.add('remove-vertical_2', 'button');
+app.appendChild(remVertical);
+
+const remHoriz = document.createElement('div');
+remHoriz.classList.add('remove-horizontal_2', 'button');
+app.appendChild(remHoriz);
+
+
+let table = document.createElement('table');
+let tbody = document.createElement('tbody');
 
 const plus = document.createElement('div');
 const minus = document.createElement('div');
-
-wrapBox.classList.add('wrap-box');
-box.classList.add('box');
-
-addHoriz.classList.add('add-horizontal');
-remHoriz.classList.add('remove-horizontal');
-
-addVertical.classList.add('add-vertical');
-remVertical.classList.add('remove-vertical');
-
 plus.classList.add('plus');
 minus.classList.add('minus');
 
-function start(root) {
-    document.querySelector(root).append(wrapBox);
+addHoriz.appendChild(plus)
+addVertical.appendChild(plus.cloneNode())
 
-    wrapBox.append(remVertical);
-    wrapBox.append(remHoriz);
-    wrapBox.append(addHoriz);
-    wrapBox.append(box);
-    wrapBox.append(addVertical);
+remVertical.appendChild(minus)
+remHoriz.appendChild(minus.cloneNode())
 
-    remVertical.append(minus.cloneNode());
-    remHoriz.append(minus);
-
-    addHoriz.append(plus.cloneNode());
-    addVertical.append(plus);
-}
-
-start('.wrap');
-
-fillSquere();
-
-function fillSquere() {
-    while (box.firstChild) {
-        box.removeChild(box.lastChild)
-    }
-
-    remVertical.addEventListener('mouseover', () => {
-        remVertical.style.visibility = "visible";
-        remHoriz.style.visibility = "visible";
-    })
-
-    remVertical.addEventListener('mouseout', () => {
-        remVertical.style.visibility = "hidden";
-        remHoriz.style.visibility = "hidden";
-    })
-
-    remHoriz.addEventListener('mouseover', () => {
-        remVertical.style.visibility = "visible";
-        remHoriz.style.visibility = "visible";
-    })
-
-    remHoriz.addEventListener('mouseout', () => {
-        remVertical.style.visibility = "hidden";
-        remHoriz.style.visibility = "hidden";
-    })
-
-    for (let i = 0; i < Math.floor(box.clientWidth / 52) * Math.floor(box.clientHeight / 52); i++) {
-       let squere = document.createElement('div')
+table.appendChild(tbody);
+app.appendChild(table);
 
 
+let rowAmount = 4;
+let columnAmount = 4; 
 
-       squere.addEventListener('mouseover', () => {
+for (let i = 0; i < rowAmount; i++) {
+    let row = document.createElement('tr');
+    tbody.appendChild(row)
 
-            remVertical.style.visibility = "visible";
-            remVertical.style.left = squere.offsetLeft + 'px'
-
-            remHoriz.style.visibility = "visible";
-            remHoriz.style.top = squere.offsetTop + 'px'
-       })
-
-       squere.addEventListener('mouseout', () => {
-            remVertical.style.visibility = "hidden";
-            remHoriz.style.visibility = "hidden";
-       })
-
-       squere.classList.add('square')
-       box.append(squere)
+    for (let j = 0; j < columnAmount; j++) {
+        let column = document.createElement('td')
+        column.textContent = `Row: ${i + 1} Col:${j + 1}`
+        row.appendChild(column)
     }
 }
 
-function changeWidth(change) {
-    switch (change) {
-        case "plus":
-            return Math.floor(box.clientWidth) + 54 + 'px'
-        case "minus":
-            return Math.floor(box.clientWidth) - 50 + 'px'
-    }
-}
-
-function changeHeight(change) {
-    switch (change) {
-        case "plus":
-            return Math.floor(box.clientHeight) + 54 + 'px'
-        case "minus":
-            return Math.floor(box.clientHeight) - 50 + 'px'
-    }
-}
+addVertical.addEventListener('click', () => {
+    let rows = document.querySelectorAll('tr')
+    rows.forEach(item => {
+        let td = document.createElement('td');
+        item.appendChild(td)
+        
+    })
+    console.log(rows)
+})
 
 addHoriz.addEventListener('click', () => {
-    box.style.width = changeWidth('plus')
-    fillSquere()
+    let row = document.querySelector('tbody').firstElementChild.cloneNode(true)
+    document.querySelector('tbody').appendChild(row)
+})
+
+
+app.addEventListener('mouseover', (e) => {
+
+    if (e.target.tagName === 'TD') {
+        remHoriz.style.visibility = 'visible'
+        remHoriz.style.top = e.target.offsetTop + 'px'
+
+        remVertical.style.visibility = 'visible'
+        remVertical.style.left = e.target.offsetLeft + 'px'
+    } else {
+        remHoriz.style.visibility = 'visible'
+        remVertical.style.visibility = 'visible'
+    }
+})
+
+app.addEventListener('mouseout', () => {
+    remHoriz.style.visibility = 'hidden'
+    remVertical.style.visibility = 'hidden'
 })
 
 remHoriz.addEventListener('click', () => {
-    box.style.width = changeWidth('minus')
-    fillSquere()
-})
+    let rows = document.querySelectorAll('tr');
+    let numberToRemove = 0;
 
-addVertical.addEventListener('click', () => {
-    box.style.height = changeHeight('plus')
-    fillSquere()
+    if (rows.length === 1) {
+        return
+    }
+
+    rows.forEach((item, i) => {
+        if (remHoriz.offsetTop - item.offsetTop === 2) {
+            numberToRemove = i
+        }
+    })
+    remHoriz.style.visibility = 'hidden'
+    remVertical.style.visibility = 'hidden'
+
+    rows[numberToRemove].remove()
 })
 
 remVertical.addEventListener('click', () => {
-    box.style.height = changeHeight('minus')
-    fillSquere()
+    let rows = document.querySelectorAll('tr');
+    let columns = rows[0].querySelectorAll('td')
+
+    if (columns.length === 1) {
+        return
+    }
+
+    let numberToRemove = 0;
+
+    columns.forEach((item, i) => {
+        if (remVertical.offsetLeft - item.offsetLeft === 0) {
+            numberToRemove = i;
+        }
+    })
+
+    remHoriz.style.visibility = 'hidden'
+    remVertical.style.visibility = 'hidden'
+
+    rows.forEach(item => {
+        item.querySelector(`:nth-child(${numberToRemove + 1})`).remove()
+        
+    })
 })
-
-
 
